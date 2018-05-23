@@ -1,0 +1,25 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: ensure boto is present
+      pip:
+        name: boto
+
+    - name: ensure that the zone is present. this should be created manually first
+      route53_zone:
+        zone: bar.com
+        state: absent
+      register: zone_out
+
+    - debug:
+        var: zone_out
+
+    - name: create record
+      route53:
+        command: delete
+        zone: bar.com
+        record: new.bar.com
+        type: A
+        value: 1.1.1.1
+        wait: yes
