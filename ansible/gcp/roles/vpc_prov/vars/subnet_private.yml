@@ -1,0 +1,6 @@
+## South Carolina
+region: "us-east1"
+
+name: "basecamp"
+
+ipv4_range: "10.240.16.0/24"

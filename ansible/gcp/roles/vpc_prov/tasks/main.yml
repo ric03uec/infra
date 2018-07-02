@@ -1,0 +1,47 @@
+## This is needed because variabes in vars/main.yml are automatically not being
+## imported in the VPC creation task. So we're explicitly importing those
+- name: Include GCP connection variables
+  include_vars:
+    dir: "/ansible/keys"
+    files_matching: creds.yml
+    name: creds
+
+- name: Include VPC config
+  include_vars:
+    file: vpc.yml
+    name: vpc
+
+- name: Include public subnet config
+  include_vars:
+    file: subnet_public.yml
+    name: subnet_public
+
+- name: Include private subnet config
+  include_vars:
+    file: subnet_private.yml
+    name: subnet_private
+
+- name: Create VPC with private subnet
+  gce_net:
+    name: "{{ vpc.name }}"
+    mode: custom
+    state: "present"
+    subnet_name: "{{ subnet_private.name }}"
+    subnet_region: "{{ subnet_private.region }}"
+    ipv4_range: "{{ subnet_private.ipv4_range }}"
+    credentials_file: "{{ creds.credentials_file }}"
+    project_id: "{{ creds.project_id }}"
+    service_account_email: "{{ creds.service_account_email }}"
+
+- name: Create public subnet
+  gce_net:
+    name: "{{ vpc.name }}"
+    mode: custom
+    state: "present"
+    subnet_name: "{{ subnet_public.name }}"
+    subnet_region: "{{ subnet_public.region }}"
+    allowed: tcp:80,ssh:22
+    ipv4_range: "{{ subnet_public.ipv4_range }}"
+    credentials_file: "{{ creds.credentials_file }}"
+    project_id: "{{ creds.project_id }}"
+    service_account_email: "{{ creds.service_account_email }}"

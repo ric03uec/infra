@@ -44,7 +44,7 @@ variable "aws_key_name" {
 
 variable "aws_key_filename" {
   description = "Key Pair FileName used to login to the box"
-  default     = "ric03uec.pem"
+  default     = "mykey.pem"
 }
 
 #######################################################

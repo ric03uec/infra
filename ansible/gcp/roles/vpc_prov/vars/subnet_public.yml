@@ -1,0 +1,6 @@
+# North Virginia
+region: us-east4
+
+name: 'trailhead'
+
+ipv4_range: '10.240.27.0/24'
