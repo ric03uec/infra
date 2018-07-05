@@ -1,0 +1,4 @@
+- hosts: localhost
+  roles:
+    - instance_prov
+    #TODO: print instance information

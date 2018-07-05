@@ -1,0 +1,56 @@
+## This is needed because variabes in vars/main.yml are automatically not being
+## imported in the VPC creation task. So we're explicitly importing those
+- name: Include GCP connection variables
+  include_vars:
+    dir: "/ansible/keys"
+    files_matching: creds.yml
+    name: creds
+
+- name: Include VPC config
+  include_vars:
+    dir: /ansible/roles/vpc_prov/vars
+    files_matching: vpc.yml
+    name: vpc
+
+- name: Include public subnet config
+  include_vars:
+    dir: /ansible/roles/vpc_prov/vars
+    files_matching: subnet_public.yml
+    name: subnet_public
+
+- name: Include private subnet config
+  include_vars:
+    dir: /ansible/roles/vpc_prov/vars
+    files_matching: subnet_private.yml
+    name: subnet_private
+
+- name: Include private subnet config
+  include_vars:
+    dir: /ansible/roles/vpc_prov/vars
+    files_matching: subnet_private.yml
+    name: subnet_private
+
+- name: Include instance specific vars
+  include_vars:
+    file: public.yml
+    name: instance_public
+
+- name: Set provision variable
+  set_fact:
+    action: "{{ action | default('present') }}"
+
+- name: Launch instances in public subnet
+  gce:
+    instance_names: crossbow-ansible
+    zone: "{{ subnet_public.zone_1 }}"
+    machine_type: "{{ instance_public.machine_type }}"
+    image_family: "{{ instance_public.machine_image_family }}"
+    disk_size: "{{ instance_public.disk_size }}"
+    tags:
+      - "{{ vpc.name }}"
+      - "{{ subnet_public.name }}"
+    #state: "{{ 'present' if !destroy else 'absent' }}"
+    state: "{{ action }}"
+    project_id: "{{ creds.project_id }}"
+    credentials_file: "{{ creds.compute_creds_file }}"
+    service_account_email: "{{ creds.compute_account_email }}"

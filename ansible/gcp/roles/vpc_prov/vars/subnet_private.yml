@@ -1,6 +1,10 @@
 ## South Carolina
-region: "us-east1"
+region: us-east1
 
-name: "basecamp"
+zone_1: us-east1-b
 
-ipv4_range: "10.240.16.0/24"
+zone_2: us-east1-c
+
+name: 'basecamp'
+
+ipv4_range: '10.240.16.0/24'

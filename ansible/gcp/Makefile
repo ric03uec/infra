@@ -22,6 +22,21 @@ staging_provision_vpc:
 		ric03uec/cansible:master -vvv \
 		$(PLAYBOOKS_DIR)/network_prov.yml
 
+instance_provision_public:
+	$(info *** Provisioning public instances ***)
+	docker run \
+		-v $(ROOT_DIR):/ansible \
+		ric03uec/cansible:master -vvv \
+		$(PLAYBOOKS_DIR)/instance_prov.yml
+
+instance_deprovision_public:
+	$(info *** Deprovisioning public instances ***)
+	docker run \
+		-v $(ROOT_DIR):/ansible \
+		ric03uec/cansible:master -vvv \
+		$(PLAYBOOKS_DIR)/instance_prov.yml \
+		--extra-vars 'action=absent'
+
 staging_deprovision_vpc:
 	$(info *** Deprovisioning staging environment VPC ***)
 	docker run \

@@ -1,6 +1,10 @@
 # North Virginia
 region: us-east4
 
+zone_1: us-east4-a
+
+zone_2: us-east4-b
+
 name: 'trailhead'
 
 ipv4_range: '10.240.27.0/24'
