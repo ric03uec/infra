@@ -1,3 +1,7 @@
+- name: Set action
+  set_fact:
+    action: "{{ action | default('present') }}"
+
 ## This is needed because variabes in vars/main.yml are automatically not being
 ## imported in the VPC creation task. So we're explicitly importing those
 - name: Include GCP connection variables
@@ -34,10 +38,6 @@
   include_vars:
     file: public.yml
     name: instance_public
-
-- name: Set provision variable
-  set_fact:
-    action: "{{ action | default('present') }}"
 
 - name: Launch instances in public subnet
   gce:
