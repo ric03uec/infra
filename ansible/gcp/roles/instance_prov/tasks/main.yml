@@ -41,15 +41,16 @@
 
 - name: Launch instances in public subnet
   gce:
-    instance_names: crossbow-ansible
+    instance_names: "{{ instance_public.webserver }}"
     zone: "{{ subnet_public.zone_1 }}"
     machine_type: "{{ instance_public.machine_type }}"
     image_family: "{{ instance_public.machine_image_family }}"
     disk_size: "{{ instance_public.disk_size }}"
+    network: "{{ vpc.name }}"
+    subnetwork: "{{ subnet_public.name }}"
     tags:
       - "{{ vpc.name }}"
       - "{{ subnet_public.name }}"
-    #state: "{{ 'present' if !destroy else 'absent' }}"
     state: "{{ action }}"
     project_id: "{{ creds.project_id }}"
     credentials_file: "{{ creds.compute_creds_file }}"

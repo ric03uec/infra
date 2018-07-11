@@ -40,8 +40,26 @@
     state: "present"
     subnet_name: "{{ subnet_public.name }}"
     subnet_region: "{{ subnet_public.region }}"
-    allowed: tcp:80,ssh:22
+    allowed: ssh:22
     ipv4_range: "{{ subnet_public.ipv4_range }}"
+    credentials_file: "{{ creds.credentials_file }}"
+    project_id: "{{ creds.project_id }}"
+    service_account_email: "{{ creds.service_account_email }}"
+
+- name: Create ingress http(s) firewall rules for public subnet
+  gce_net:
+    name: "{{ vpc.name }}"
+    mode: custom
+    state: "present"
+    fwname: "{{ subnet_public.fw_ingress }}"
+    allowed: tcp:80;tcp:443;tcp:22;icmp
+    subnet_name: "{{ subnet_public.name }}"
+    subnet_region: "{{ subnet_public.region }}"
+    src_range:
+      - "0.0.0.0/0"
+    target_tags:
+      - "{{ vpc.name }}"
+      - "{{ subnet_public.name }}"
     credentials_file: "{{ creds.credentials_file }}"
     project_id: "{{ creds.project_id }}"
     service_account_email: "{{ creds.service_account_email }}"
