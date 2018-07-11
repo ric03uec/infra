@@ -9,4 +9,10 @@ name: 'trailhead'
 
 ipv4_range: '10.240.27.0/24'
 
-fw_ingress: 'trailhead-incoming'
+fw_ingress_icmp: 'trailhead-incoming-icmp'
+
+fw_ingress_ssh: 'trailhead-incoming-ssh'
+
+fw_ingress_http: 'trailhead-incoming-http'
+
+fw_ingress_https: 'trailhead-incoming-https'

@@ -51,7 +51,7 @@
     name: "{{ vpc.name }}"
     mode: custom
     state: "present"
-    fwname: "{{ subnet_public.fw_ingress }}"
+    fwname: "{{ subnet_public.fw_ingress_icmp }}"
     allowed: icmp
     subnet_name: "{{ subnet_public.name }}"
     subnet_region: "{{ subnet_public.region }}"
@@ -69,7 +69,7 @@
     name: "{{ vpc.name }}"
     mode: custom
     state: "present"
-    fwname: "{{ subnet_public.fw_ingress }}"
+    fwname: "{{ subnet_public.fw_ingress_ssh }}"
     allowed: tcp:22
     subnet_name: "{{ subnet_public.name }}"
     subnet_region: "{{ subnet_public.region }}"
@@ -87,7 +87,7 @@
     name: "{{ vpc.name }}"
     mode: custom
     state: "present"
-    fwname: "{{ subnet_public.fw_ingress }}"
+    fwname: "{{ subnet_public.fw_ingress_http }}"
     allowed: tcp:80
     subnet_name: "{{ subnet_public.name }}"
     subnet_region: "{{ subnet_public.region }}"
@@ -105,7 +105,7 @@
     name: "{{ vpc.name }}"
     mode: custom
     state: "present"
-    fwname: "{{ subnet_public.fw_ingress }}"
+    fwname: "{{ subnet_public.fw_ingress_https }}"
     allowed: tcp:443
     subnet_name: "{{ subnet_public.name }}"
     subnet_region: "{{ subnet_public.region }}"
