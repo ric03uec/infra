@@ -46,13 +46,67 @@
     project_id: "{{ creds.project_id }}"
     service_account_email: "{{ creds.service_account_email }}"
 
-- name: Create ingress http(s) firewall rules for public subnet
+- name: Create ingress ICMP firewall rules for public subnet
   gce_net:
     name: "{{ vpc.name }}"
     mode: custom
     state: "present"
     fwname: "{{ subnet_public.fw_ingress }}"
-    allowed: tcp:80;tcp:443;tcp:22;icmp
+    allowed: icmp
+    subnet_name: "{{ subnet_public.name }}"
+    subnet_region: "{{ subnet_public.region }}"
+    src_range:
+      - "0.0.0.0/0"
+    target_tags:
+      - "{{ vpc.name }}"
+      - "{{ subnet_public.name }}"
+    credentials_file: "{{ creds.credentials_file }}"
+    project_id: "{{ creds.project_id }}"
+    service_account_email: "{{ creds.service_account_email }}"
+
+- name: Create ingress SSH firewall rules for public subnet
+  gce_net:
+    name: "{{ vpc.name }}"
+    mode: custom
+    state: "present"
+    fwname: "{{ subnet_public.fw_ingress }}"
+    allowed: tcp:22
+    subnet_name: "{{ subnet_public.name }}"
+    subnet_region: "{{ subnet_public.region }}"
+    src_range:
+      - "0.0.0.0/0"
+    target_tags:
+      - "{{ vpc.name }}"
+      - "{{ subnet_public.name }}"
+    credentials_file: "{{ creds.credentials_file }}"
+    project_id: "{{ creds.project_id }}"
+    service_account_email: "{{ creds.service_account_email }}"
+
+- name: Create ingress http firewall rules for public subnet
+  gce_net:
+    name: "{{ vpc.name }}"
+    mode: custom
+    state: "present"
+    fwname: "{{ subnet_public.fw_ingress }}"
+    allowed: tcp:80
+    subnet_name: "{{ subnet_public.name }}"
+    subnet_region: "{{ subnet_public.region }}"
+    src_range:
+      - "0.0.0.0/0"
+    target_tags:
+      - "{{ vpc.name }}"
+      - "{{ subnet_public.name }}"
+    credentials_file: "{{ creds.credentials_file }}"
+    project_id: "{{ creds.project_id }}"
+    service_account_email: "{{ creds.service_account_email }}"
+
+- name: Create ingress https firewall rules for public subnet
+  gce_net:
+    name: "{{ vpc.name }}"
+    mode: custom
+    state: "present"
+    fwname: "{{ subnet_public.fw_ingress }}"
+    allowed: tcp:443
     subnet_name: "{{ subnet_public.name }}"
     subnet_region: "{{ subnet_public.region }}"
     src_range:
