@@ -37,6 +37,7 @@ centos-7-v20180716                                    centos-cloud       centos-
 ### Azure
 
 - to use azure cli, use one of the official images from : https://hub.docker.com/r/microsoft/azure-cli/tags/
+
 ### TODO
 
 - naming convention for extensibility
