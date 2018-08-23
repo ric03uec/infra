@@ -16,6 +16,7 @@ happier. Hence, these scripts for creating a devbox quickly, anywhere, anytime.
 - [  ] create public-private keypair for plato
 - [  ] install htop
 - [  ] install git
+- [  ] install [git-extras](https://github.com/tj/git-extras/blob/master/Installation.md)
 - [  ] install tmux
 - [  ] configure tmux
     - tmuxrc file
