@@ -1,4 +1,4 @@
-- hosts: {{ lookup ('env', 'ANSIBLE_HOSTS') }}
+- hosts: devbox
   become: true
   tasks:
     - name: apt update
@@ -11,7 +11,9 @@
         state: present
 
     - name: ensure docker registry is available
-      apt_repository: repo='deb https://apt.dockerproject.org/repo ubuntu-xenial main' state=present
+      apt_repository:
+        repo: deb https://apt.dockerproject.org/repo ubuntu-xenial main
+        state: present
 
     - name: ensure docker and dependencies are installed
       apt:
@@ -21,7 +23,10 @@
     - service: name=docker state=restarted
 
     - name: install Nginx web server
-      apt: name=nginx state=installed update_cache=true
+      apt:
+        name: nginx
+        state: installed
+        update_cache: true
 
     - name: remove default nginx config
       file:

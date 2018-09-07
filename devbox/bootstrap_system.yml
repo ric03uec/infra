@@ -37,11 +37,20 @@
         line: '    PasswordAuthentication no'
         state: present
 
+    - name: create group {{ devbox.username }}
+      group:
+        name: "{{ devbox.username }}"
+        gid: 1002
+        state: present
+
     - name: create user {{ devbox.username }}
       user:
         name: "{{ devbox.username }}"
+        uid: 1002
+        state: present
         append: yes
-        group: sudo
+        group: "{{ devbox.username }}"
+        groups: sudo
         create_home: yes
         shell: /bin/zsh
         generate_ssh_key: yes
@@ -54,6 +63,7 @@
       include_vars:
         file: devbox.yml
         name: devbox
+
     - name: install random number generator management tools
       apt:
         name: rng-tools
@@ -78,3 +88,29 @@
       apt:
         name: git-extras
         state: present
+
+- hosts: devbox
+  tasks:
+    - name: include variables for devbox instances
+      include_vars:
+        file: devbox.yml
+        name: devbox
+
+    - name: Cloning oh-my-zsh
+      git:
+        repo: https://github.com/robbyrussell/oh-my-zsh
+        dest: /home/{{ devbox.username }}/.oh-my-zsh
+
+    - name: Create new ~/.zshrc from template
+      vars:
+        username: "{{ devbox.username }}"
+      template:
+        src: templates/zshrc.template.j2
+        dest: /home/{{ devbox.username }}/.zshrc
+
+    - name: update home folder ownership
+      file:
+        dest: /home/{{ devbox.username }}
+        owner: "{{ devbox.username }}"
+        group: "{{ devbox.username }}"
+        recurse: yes
