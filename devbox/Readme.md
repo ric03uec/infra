@@ -43,7 +43,7 @@ $ docker run --rm -v $(pwd):/ansible -e ANSIBLE_STDOUT_CALLBACK=debug ric03uec/c
 - [x] configure zsh
     - theme
     - shortcuts
-- [  ] configure tmux
+- [x] configure tmux
     - tmuxrc file
     - tmux tony
     - tmux resurrect plugin
