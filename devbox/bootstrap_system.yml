@@ -1,6 +1,3 @@
-#TODO:
-# - get hostname from a variable
-# - move config variables into vars file
 - hosts: devbox
   become: true
   tasks:
@@ -17,6 +14,11 @@
         name: python-minimal
         state: present
 
+    - name: install zsh
+      apt:
+        name: zsh
+        state: present
+
     - name: update hostname
       hostname:
         name: "{{ devbox.hostname }}"
@@ -26,4 +28,53 @@
         dest: /etc/hosts
         regexp: '^127\.0\.0\.1[ \t]+localhost'
         line: '127.0.0.1 localhost {{ devbox.hostname }}'
+        state: present
+
+    - name: disable ssh with password on the host
+      lineinfile:
+        dest: /etc/ssh/ssh_config
+        regexp: '#   PasswordAuthentication yes'
+        line: '    PasswordAuthentication no'
+        state: present
+
+    - name: create user {{ devbox.username }}
+      user:
+        name: "{{ devbox.username }}"
+        append: yes
+        group: sudo
+        create_home: yes
+        shell: /bin/zsh
+        generate_ssh_key: yes
+        ssh_key_file: ".ssh/id_rsa_{{ devbox.username }}"
+
+- hosts: devbox
+  become: true
+  tasks:
+    - name: include variables for devbox instances
+      include_vars:
+        file: devbox.yml
+        name: devbox
+    - name: install random number generator management tools
+      apt:
+        name: rng-tools
+        state: present
+
+    - name: install tmux
+      apt:
+        name: tmux
+        state: present
+
+    - name: install htop
+      apt:
+        name: htop
+        state: present
+
+    - name: install git
+      apt:
+        name: git-core
+        state: present
+
+    - name: install git-extras
+      apt:
+        name: git-extras
         state: present
