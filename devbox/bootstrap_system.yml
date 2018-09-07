@@ -130,6 +130,13 @@
         group: "{{ devbox.username }}"
         recurse: yes
 
+- hosts: devbox
+  tasks:
+    - name: include variables for devbox instances
+      include_vars:
+        file: devbox.yml
+        name: devbox
+
     - name: clone tmux config
       git:
         repo: https://github.com/tony/tmux-config.git
@@ -152,3 +159,21 @@
         repo: https://github.com/tmux-plugins/tmux-resurrect.git
         dest: /home/{{ devbox.username }}/.tmux/vendor/tmux-resurrect
         depth: 1
+
+- hosts: devbox
+  tasks:
+    - name: include variables for devbox instances
+      include_vars:
+        file: devbox.yml
+        name: devbox
+
+    - name: add nvim repository
+      apt_repository:
+        repo: ppa:neovim-ppa/stable
+        state: present
+
+    - name: install neovim
+      apt:
+        update_cache: yes
+        name: neovim
+        state: present
