@@ -34,18 +34,20 @@ $ docker run --rm -v $(pwd):/ansible -e ANSIBLE_STDOUT_CALLBACK=debug ric03uec/c
 - [x] install zsh
 - [x] create user "plato" with passwordless root access with home directory
     - set shell as zsh
+    - update ownership of home directory(and subdirectories)
 - [x] create public-private keypair for plato
 - [x] install htop
 - [x] install git
 - [x] install [git-extras](https://github.com/tj/git-extras/blob/master/Installation.md)
 - [x] install tmux
-- [  ] configure tmux
-    - tmuxrc file
-    - tmux resurrect plugin
-    - shortcuts and colors
-- [  ] configure zsh
+- [x] configure zsh
     - theme
     - shortcuts
+- [  ] configure tmux
+    - tmuxrc file
+    - tmux tony
+    - tmux resurrect plugin
+    - shortcuts and colors
 
 **Basic packages**
 - [  ] install nvim
