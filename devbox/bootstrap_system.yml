@@ -1,0 +1,29 @@
+#TODO:
+# - get hostname from a variable
+# - move config variables into vars file
+- hosts: devbox
+  become: true
+  tasks:
+    - name: include variables for devbox instances
+      include_vars:
+        file: devbox.yml
+        name: devbox
+
+    - name: apt update
+      apt: update_cache=yes
+
+    - name: install python on Ubuntu 16.04 host
+      apt:
+        name: python-minimal
+        state: present
+
+    - name: update hostname
+      hostname:
+        name: "{{ devbox.hostname }}"
+
+    - name: update hostname in /etc/hosts
+      lineinfile:
+        dest: /etc/hosts
+        regexp: '^127\.0\.0\.1[ \t]+localhost'
+        line: '127.0.0.1 localhost {{ devbox.hostname }}'
+        state: present
