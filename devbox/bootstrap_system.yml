@@ -9,9 +9,9 @@
     - name: apt update
       apt: update_cache=yes
 
-    - name: install sotware properties package
+    - name: install cmake
       apt:
-        name: software-properties-common
+        name: cmake
         state: present
 
     - name: install python development packages
@@ -19,6 +19,7 @@
         name:  "{{ item }}"
         state: present
       with_items:
+        - software-properties-common
         - python-dev
         - python-pip
         - python3-dev

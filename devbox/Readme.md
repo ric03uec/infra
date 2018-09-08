@@ -48,6 +48,10 @@ $ docker run --rm -v $(pwd):/ansible -e ANSIBLE_STDOUT_CALLBACK=debug ric03uec/c
     - tmux tony
     - tmux resurrect plugin
     - shortcuts and colors
+- [  ] add local public key in user's authorized keys
+- [  ] copy the remote public key in local keychain
+- [  ] copy local github key to remote
+    - this should be the key used for all github related operations
 
 **Basic packages**
 - [x] install nvim
@@ -55,6 +59,7 @@ $ docker run --rm -v $(pwd):/ansible -e ANSIBLE_STDOUT_CALLBACK=debug ric03uec/c
     - install all relevant plugins
 - [  ] install docker
 - [  ] configure docker
+    - set correct group, run as non root user: https://docs.docker.com/install/linux/linux-postinstall/
     - disable http listener
     - configure data directory
 
@@ -63,3 +68,16 @@ $ docker run --rm -v $(pwd):/ansible -e ANSIBLE_STDOUT_CALLBACK=debug ric03uec/c
 - [  ] install certbot
 - [  ] generate certs for plato.ric03uec.com
 
+**For desktop**
+- [  ] install terminator
+- [  ] install firefox nightly
+- [  ] install chrome
+- [  ] install dropbox
+- [  ] install spotify
+- [  ] install slack, xoom, openoffice
+
+### Building
+- bundle everything up in a Makefile. It should be possible to run just the
+  system config, basic packages, addons scripts.
+    - I'd want to install some packages for testing later which should not
+      really affect the base system configuration
