@@ -48,7 +48,7 @@ $ docker run --rm -v $(pwd):/ansible -e ANSIBLE_STDOUT_CALLBACK=debug ric03uec/c
     - tmux tony
     - tmux resurrect plugin
     - shortcuts and colors
-- [  ] add local public key in user's authorized keys
+- [x] add local public key in new user's authorized keys
 - [  ] copy the remote public key in local keychain
 - [  ] copy local github key to remote
     - this should be the key used for all github related operations
@@ -75,6 +75,10 @@ $ docker run --rm -v $(pwd):/ansible -e ANSIBLE_STDOUT_CALLBACK=debug ric03uec/c
 - [  ] install dropbox
 - [  ] install spotify
 - [  ] install slack, xoom, openoffice
+
+**Misc**
+- [  ] show warning if no keys have been added
+- [  ] output everything in a file with timestamp for audit
 
 ### Building
 - bundle everything up in a Makefile. It should be possible to run just the
