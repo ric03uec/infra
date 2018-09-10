@@ -114,7 +114,27 @@
         name: git-extras
         state: present
 
+    - name: add nvim repository
+      apt_repository:
+        repo: ppa:neovim-ppa/stable
+        state: present
+
+    - name: install neovim
+      apt:
+        update_cache: yes
+        name: neovim
+        state: present
+
+    - name: update home folder ownership
+      file:
+        dest: /home/{{ devbox.username }}
+        owner: "{{ devbox.username }}"
+        group: "{{ devbox.username }}"
+        recurse: yes
+
 - hosts: devbox
+  become: true
+  become_user: "{{ devbox.username }}"
   tasks:
     - name: include variables for devbox instances
       include_vars:
@@ -133,14 +153,9 @@
         src: templates/zshrc.template.j2
         dest: /home/{{ devbox.username }}/.zshrc
 
-    - name: update home folder ownership
-      file:
-        dest: /home/{{ devbox.username }}
-        owner: "{{ devbox.username }}"
-        group: "{{ devbox.username }}"
-        recurse: yes
-
 - hosts: devbox
+  become: true
+  become_user: "{{ devbox.username }}"
   tasks:
     - name: include variables for devbox instances
       include_vars:
@@ -171,19 +186,40 @@
         depth: 1
 
 - hosts: devbox
+  become: true
+  become_user: "{{ devbox.username }}"
   tasks:
     - name: include variables for devbox instances
       include_vars:
         file: devbox.yml
         name: devbox
 
-    - name: add nvim repository
-      apt_repository:
-        repo: ppa:neovim-ppa/stable
-        state: present
-
-    - name: install neovim
-      apt:
-        update_cache: yes
+    - name: install python support for neovim
+      pip:
         name: neovim
-        state: present
+        state: latest
+        executable: pip
+
+    - name: install python support for neovim using pip2
+      pip:
+        name: neovim
+        state: latest
+        executable: pip2
+
+    - name: install python support for neovim using pip3
+      pip:
+        name: neovim
+        state: latest
+        executable: pip3
+
+    - name: configure neovim
+      git:
+        repo: https://github.com/ric03uec/.vim
+        dest: /home/{{ devbox.username }}/.config/nvim
+        force: yes
+
+    - name: configure YCM
+      shell: /home/{{ devbox.username }}/.config/nvim/bundle/YouCompleteMe/install.py
+      args:
+        executable: /bin/bash
+
