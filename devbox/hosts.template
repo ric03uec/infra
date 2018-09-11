@@ -1,5 +1,5 @@
 [devbox]
-54.85.185.122 ansible_connection=ssh ansible_user=root ansible_ssh_private_key_file=/ansible/keys/id_rsa ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+54.85.185.122 ansible_connection=ssh ansible_user=root ansible_ssh_private_key_file=/ansible/keys/setupKey.private ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [desktop]
-54.85.185.122 ansible_connection=ssh ansible_user=root ansible_ssh_private_key_file=/ansible/keys/id_rsa ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+54.85.185.122 ansible_connection=ssh ansible_user=root ansible_ssh_private_key_file=/ansible/keys/setupKey.private ansible_ssh_common_args='-o StrictHostKeyChecking=no'

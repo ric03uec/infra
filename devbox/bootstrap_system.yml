@@ -72,14 +72,29 @@
         generate_ssh_key: yes
         ssh_key_file: ".ssh/id_rsa_{{ devbox.username }}"
 
-    - name: set authorized key
+    - name: append all public keys with .public extension to authorized_keys file
       authorized_key:
         user: "{{ devbox.username }}"
         state: present
         manage_dir: yes
         key: "{{ lookup('file', item) }}"
       with_fileglob:
-        - "/ansible/keys/*public"
+        - "/ansible/keys/*.public"
+
+    - name: find all private keys
+      find:
+        paths: /ansible/keys
+        patterns: '*.private'
+      delegate_to: 127.0.0.1
+      register: local_private_keys
+
+    - name: copy all private keys with .private extension to .ssh folder
+      copy:
+        src: "{{ item.path }}"
+        dest: /home/{{ devbox.username }}/.ssh/
+        owner: "{{ devbox.username }}"
+      with_items: "{{ local_private_keys.files }}"
+      when: local_private_keys.matched > 0
 
 - hosts: devbox
   become: true

@@ -18,6 +18,11 @@ readonly ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ## syntax
 ## ./setup.sh <mode> [local|devbox]
 
+##TODO
+# generate a private-public key pair if not present already
+# ask user to add the public key in authorized keys of root user on the remote box
+# exit out if no keys present
+
 
 __bootstrap_system() {
   local cmd="docker run  \
