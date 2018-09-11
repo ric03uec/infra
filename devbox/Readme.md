@@ -1,7 +1,7 @@
 ## Devbox
 
 If I had a dollar for everytime I wanted to debug something on cloud in
-a "real" environment, I wouldn't have too much money but I'd be significantly
+a "real" environment, I wouldn't have too much money but I'd be slightly
 happier.
 Hence, these scripts for creating a devbox quickly, anywhere, anytime.
 
@@ -12,20 +12,14 @@ Hence, these scripts for creating a devbox quickly, anywhere, anytime.
 - use following command to apply the changes
 
 ```
-$ docker run --rm -v $(pwd):/ansible ric03uec/cansible:master -vv -i /ansible/hosts /ansible/bootstrap_system.yml
-```
-
-```
-## for debug(human-readable) logs
-$ docker run --rm -v $(pwd):/ansible -e ANSIBLE_STDOUT_CALLBACK=debug ric03uec/cansible:master -vv -i /ansible/hosts /ansible/bootstrap_system.yml
+$ setup.sh remote|desktop
 ```
 
 ### Goals
 
 **System configuration**
 
-- [ ] should support localhost as well as remote IP
-    - static inventory file for now
+- [x] static inventory file for now
 - [x] read hostname and other variables from variables file
 - [x] configure hostname on an Ubuntu 16.04 box: plato
 - [x] install python minimal, needed for ansible to work correctly
