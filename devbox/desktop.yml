@@ -1,0 +1,12 @@
+- hosts: desktop
+  become: true
+  tasks:
+    - name: apt update
+      apt: update_cache=yes
+
+    - name: install desktop packages
+      apt:
+        name:  "{{ item }}"
+        state: present
+      with_items:
+        - terminator

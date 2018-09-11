@@ -4,8 +4,6 @@
     - name: apt update
       apt: update_cache=yes
 
-    - service: name=docker state=restarted
-
     - name: install Nginx web server
       apt:
         name: nginx

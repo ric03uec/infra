@@ -74,6 +74,26 @@ __bootstrap_remote() {
     /ansible/bootstrap_system.yml"
   log_info "Executing $cmd"
   eval "$cmd"
+  log_success "Successfully set up remote machine(s)"
+}
+
+__config_webserver() {
+  log_info "Configuring webserver settings on remote machine(s)"
+  local envs=""
+  envs="$envs -e ANSIBLE_STDOUT_CALLBACK=debug"
+
+  local cmd="docker run  \
+    --rm \
+    -v $(pwd):/ansible \
+    $envs \
+    ric03uec/cansible:master \
+    -vv \
+    -i /ansible/hosts \
+    /ansible/webserver.yml"
+  log_info "Executing $cmd"
+  eval "$cmd"
+
+  log_info "Successfully set up webserver on remote machine(s)"
 }
 
 __print_help() {
@@ -102,6 +122,7 @@ main() {
   elif [ "$OPTS" == "remote" ]; then
     __generate_ssh_keys
     __bootstrap_remote
+    __config_webserver
     exit 0
   elif [ "$OPTS" == "desktop" ]; then
     __bootstrap_desktop
