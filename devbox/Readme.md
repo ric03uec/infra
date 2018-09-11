@@ -55,7 +55,7 @@ $ docker run --rm -v $(pwd):/ansible -e ANSIBLE_STDOUT_CALLBACK=debug ric03uec/c
 
 **Basic packages**
 - [x] install nvim
-- [  ] configure nvim
+- [x] configure nvim
     - install all relevant plugins
 - [  ] install docker
 - [  ] configure docker
