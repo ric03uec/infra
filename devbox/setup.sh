@@ -23,6 +23,17 @@ readonly ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # ask user to add the public key in authorized keys of root user on the remote box
 # exit out if no keys present
 
+__bootstrap_desktop() {
+  local cmd="docker run  \
+    --rm \
+    -v $(pwd):/ansible \
+    -e ANSIBLE_STDOUT_CALLBACK=debug \
+    ric03uec/cansible:master \
+    -vv \
+    -i /ansible/hosts \
+    /ansible/bootstrap_desktop.yml"
+  eval "$cmd"
+}
 
 __bootstrap_system() {
   local cmd="docker run  \

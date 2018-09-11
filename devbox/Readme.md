@@ -50,15 +50,15 @@ $ docker run --rm -v $(pwd):/ansible -e ANSIBLE_STDOUT_CALLBACK=debug ric03uec/c
     - shortcuts and colors
 - [x] add local public key in new user's authorized keys
 - [  ] copy the remote public key in local keychain
-- [  ] copy local github key to remote
+- [x] copy local github key to remote
     - this should be the key used for all github related operations
 
 **Basic packages**
 - [x] install nvim
 - [x] configure nvim
     - install all relevant plugins
-- [  ] install docker
-- [  ] configure docker
+- [x] install docker
+- [x] configure docker
     - set correct group, run as non root user: https://docs.docker.com/install/linux/linux-postinstall/
     - disable http listener
     - configure data directory
