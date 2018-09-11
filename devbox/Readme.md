@@ -43,11 +43,11 @@ $ setup.sh remote|desktop
     - tmux resurrect plugin
     - shortcuts and colors
 - [x] add local public key in new user's authorized keys
-- [  ] copy the remote public key in local keychain
 - [x] copy local github key to remote
     - this should be the key used for all github related operations
 
 **Basic packages**
+
 - [x] install nvim
 - [x] configure nvim
     - install all relevant plugins
@@ -58,11 +58,13 @@ $ setup.sh remote|desktop
     - configure data directory
 
 **Addons**
-- [  ] install nginx // required to serve traffic from the box
-- [  ] install certbot
+
+- [x] install nginx // required to serve traffic from the box
+- [x] install certbot
 - [  ] generate certs for plato.ric03uec.com
 
 **For desktop**
+
 - [  ] install terminator
 - [  ] install firefox nightly
 - [  ] install chrome
@@ -71,11 +73,6 @@ $ setup.sh remote|desktop
 - [  ] install slack, xoom, openoffice
 
 **Misc**
+
 - [  ] show warning if no keys have been added
 - [  ] output everything in a file with timestamp for audit
-
-### Building
-- bundle everything up in a Makefile. It should be possible to run just the
-  system config, basic packages, addons scripts.
-    - I'd want to install some packages for testing later which should not
-      really affect the base system configuration
